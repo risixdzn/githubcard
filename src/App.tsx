@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -23,9 +23,11 @@ function App() {
     repos_url: "",
   })
 
+  const [ displayRepo, setDisplayRepo ] = useState([]);
+
   const [displayError, setDisplayError] = useState(false);
   const [displayCard, setDisplayCard] = useState(false);
-
+  
   function fetchUser(){
     setDisplayError(false);
     setDisplayCard(false)
@@ -53,6 +55,14 @@ function App() {
     })
   }
 
+  useEffect(() => {
+    if (displayUser.public_repos > 0){
+      axios.get(`${displayUser.repos_url}`).then((res)=>{
+        console.log(res.data);
+      })
+    } 
+  }, [displayUser]);
+
   const buscar = (e: { preventDefault: () => void })=>{
     e.preventDefault();
     fetchUser()
@@ -79,7 +89,6 @@ function App() {
           <h1>{displayUser.followers}</h1>
           <h1>{displayUser.following}</h1>
           <h1>{displayUser.public_repos}</h1>
-          <h2>{displayUser.repos_url}</h2>
           <img src={displayUser.avatar_url}></img>
         </div>        
       </div>      
