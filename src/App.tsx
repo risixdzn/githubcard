@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, JSXElementConstructor, Key, ReactElement, ReactFragment } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -22,7 +22,7 @@ function App() {
     html_url: "",
     repos_url: "",
     repos: [],
-  })
+  }as any);
 
   const [displayError, setDisplayError] = useState(false);
   const [displayCard, setDisplayCard] = useState(false);
@@ -66,10 +66,11 @@ function App() {
             language: repo.language,
             startgazers_count: repo.startgazers_count,
             forks_count: repo.forks_count,
+            id: repo.id,
             license: repo.license?.name || "", // acessa o nome da licença, se houver, ou retorna uma string vazia
           };
         });  
-        setDisplayUser((prevUser) => {
+        setDisplayUser((prevUser:any) => {
           return {
             ...prevUser,
             repos: newRepos, // atualiza o array de repositórios com os novos valores
@@ -99,15 +100,44 @@ function App() {
       <div className='usercard' style={ displayCard ? {display:"block"} : {display: 'none'}}>        
         <div className='usercard'>
           <h1>{displayUser.name}</h1>
-          <h1>{displayUser.login}</h1>
+          <h1>/{displayUser.login}</h1>
           <h1>{displayUser.bio}</h1>
-          <h1>{displayUser.blog}</h1>
-          <h1>{displayUser.followers}</h1>
-          <h1>{displayUser.following}</h1>
-          <h1>{displayUser.public_repos}</h1>
+          <a href={`https://${displayUser.blog}`}>{displayUser.blog}</a>
+          <h1>Seguidores: {displayUser.followers}</h1>
+          <h1>Seguindo: {displayUser.following}</h1>
+          <h1>Repositórios: {displayUser.public_repos}</h1>
           <img src={displayUser.avatar_url}></img>
         </div>        
       </div>      
+      
+      <h3>Repositórios</h3>
+      {/* Para verificar se o array de repositórios em displayUser está vazio,
+      você pode usar a função length do array.
+      Se o length for igual a zero, o array está vazio. */}
+      { displayUser.repos.length !== 0 ?
+        (
+          displayUser.repos.map((repo: { name: String,
+            html_url: string,
+            description: string,
+            language: string,
+            startgazers_count: number,
+            forks_count: number,
+            id: number,
+            license: string })=>( 
+            <div key={repo.id}>     
+              <a href={repo.html_url} target='_blank'>{repo.name}</a>    
+              <p>{repo.description}</p> 
+              <h3>{repo.language}</h3>  
+            </div> 
+          ))         
+        )
+        :
+        (
+          <>
+            <p>Este usuário nao possui repositórios</p>
+          </>          
+        )
+      }
     </div>
   )
 }
