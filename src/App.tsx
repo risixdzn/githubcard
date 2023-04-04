@@ -5,6 +5,8 @@ import './App.css'
 
 import axios from 'axios'
 
+import languageColors from './languageColors';
+
 function App() {
   const apiUrl = "https://api.github.com/users/"
 
@@ -110,7 +112,7 @@ function App() {
         </div>        
       </div>      
       
-      <h3>Repositórios</h3>
+      <h2>Repositórios</h2>
       {/* Para verificar se o array de repositórios em displayUser está vazio,
       você pode usar a função length do array.
       Se o length for igual a zero, o array está vazio. */}
@@ -127,7 +129,10 @@ function App() {
             <div key={repo.id}>     
               <a href={repo.html_url} target='_blank'>{repo.name}</a>    
               <p>{repo.description}</p> 
-              <h3>{repo.language}</h3>  
+              <h3 style={{color: languageColors[repo.language]}}>{repo.language}</h3> 
+              <h4>Estrelas: {repo.startgazers_count}</h4>
+              <h5>Forks: {repo.forks_count}</h5>
+              <h3>{repo.license}</h3>
             </div> 
           ))         
         )
