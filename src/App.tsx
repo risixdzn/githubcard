@@ -21,17 +21,16 @@ function App() {
     avatar_url: "",
     html_url: "",
     repos_url: "",
+    repos: [],
   })
-
-  const [ displayRepo, setDisplayRepo ] = useState([]);
 
   const [displayError, setDisplayError] = useState(false);
   const [displayCard, setDisplayCard] = useState(false);
   
   function fetchUser(){
     setDisplayError(false);
-    setDisplayCard(false)
-
+    setDisplayCard(false);
+  
     axios.get(`${apiUrl}${inputUsername}`).then((res)=>{
       setDisplayError(false);
       setDisplayCard(true);
@@ -47,21 +46,38 @@ function App() {
         avatar_url: res.data.avatar_url,
         html_url: res.data.html_url,
         repos_url: res.data.repos_url + "?sort=updated&direction=desc&per_page=2&type=owner",
-      })
+        repos: [], // inicializa o array de repositórios vazio
+      });
     }).catch(function (e){
       if(e.response.status == 404){
         setDisplayError(true);
       } 
     })
   }
-
+  
   useEffect(() => {
     if (displayUser.public_repos > 0){
       axios.get(`${displayUser.repos_url}`).then((res)=>{
-        console.log(res.data);
-      })
+        const newRepos = res.data.map((repo:any) => {
+          return {
+            name: repo.name,
+            html_url: repo.html_url,
+            description: repo.description,
+            language: repo.language,
+            startgazers_count: repo.startgazers_count,
+            forks_count: repo.forks_count,
+            license: repo.license?.name || "", // acessa o nome da licença, se houver, ou retorna uma string vazia
+          };
+        });  
+        setDisplayUser((prevUser) => {
+          return {
+            ...prevUser,
+            repos: newRepos, // atualiza o array de repositórios com os novos valores
+          };
+        });
+      });
     } 
-  }, [displayUser]);
+  }, [displayUser.repos_url]);
 
   const buscar = (e: { preventDefault: () => void })=>{
     e.preventDefault();
