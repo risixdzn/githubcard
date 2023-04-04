@@ -80,6 +80,7 @@ function App() {
           <h1>{displayUser.following}</h1>
           <h1>{displayUser.public_repos}</h1>
           <h2>{displayUser.repos_url}</h2>
+          <img src={displayUser.avatar_url}></img>
         </div>        
       </div>      
     </div>
