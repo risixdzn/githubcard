@@ -7,9 +7,10 @@ import axios from 'axios'
 
 import languageColors from './languageColors';
 
-import { FaGithub } from 'react-icons/fa'
+import { FaStar, FaGithub } from 'react-icons/fa'
 import { RiSuitcaseLine } from 'react-icons/ri'
-import { TbLink } from 'react-icons/tb'
+import { TbLink, TbGitFork } from 'react-icons/tb'
+import { GoLaw } from 'react-icons/go'
 
 function App() {
   const apiUrl = "https://api.github.com/users/"
@@ -91,7 +92,7 @@ function App() {
             html_url: repo.html_url,
             description: repo.description,
             language: repo.language,
-            startgazers_count: repo.startgazers_count,
+            stargazers_count: repo.stargazers_count,
             forks_count: repo.forks_count,
             id: repo.id,
             license: repo.license?.name || "", // acessa o nome da licença, se houver, ou retorna uma string vazia
@@ -159,40 +160,55 @@ function App() {
           
           <div className='repoinfo'>
             <span className='title'><h2>Repositórios</h2><h3>{displayUser.public_repos}</h3></span>
-            {/* Para verificar se o array de repositórios em displayUser está vazio,
-            você pode usar a função length do array.
-            Se o length for igual a zero, o array está vazio. */}
-            { displayUser.repos.length !== 0 ?
-              (
-                displayUser.repos.map((repo: { name: String,
-                  html_url: string,
-                  description: string,
-                  language: string,
-                  startgazers_count: number,
-                  forks_count: number,
-                  id: number,
-                  license: string })=>( 
-                    <a target='_blank' href={repo.html_url}>
-                      <div key={repo.id} className='repo'>     
-                        <h1 >{repo.name}</h1>    
-                        <p>{repo.description}</p> 
-                        <h3 style={{color: languageColors[repo.language]}}>{repo.language}</h3> 
-                        <div className='langcolor' style={{backgroundColor: languageColors[repo.language], width: 5, height: 5}}></div>
-                        <h4>Estrelas: {repo.startgazers_count}</h4>
-                        <h5>Forks: {repo.forks_count}</h5>
-                        <h3>{repo.license}</h3>
-                      </div> 
-                    </a>
-                  
-                ))         
-              )
-              :
-              (
-                <>
-                  <p>Este usuário nao possui repositórios</p>
-                </>          
-              )
-            }
+            
+            <div className='repos'>
+              {/* Para verificar se o array de repositórios em displayUser está vazio,
+              você pode usar a função length do array.
+              Se o length for igual a zero, o array está vazio. */}
+              { displayUser.repos.length !== 0 ?
+                (
+                  displayUser.repos.map((repo: { name: String,
+                    html_url: string,
+                    description: string,
+                    language: string,
+                    stargazers_count: number,
+                    forks_count: number,
+                    id: number,
+                    license: string })=>( 
+                      <a target='_blank' href={repo.html_url} className='repo'>
+                        <div key={repo.id}>     
+                          <div className="titlesec">
+                            <h1>{repo.name}</h1>
+                            <div className='stats'>
+                              <h4><FaStar/>{repo.stargazers_count}</h4>
+                              <h4><TbGitFork/>{repo.forks_count}</h4>    
+                            </div>
+                          </div>                            
+                          <p>{repo.description}</p> 
+                          <div className="info">   
+                            <div className="language">
+                              <div className='langcolor' style={{backgroundColor: languageColors[repo.language]}}></div>
+                              <h3>{repo.language}</h3> 
+                            </div>
+                            <div className="license" style={ repo.license !== "" ? {display:"flex"} : {display: 'none'}}>
+                              <GoLaw className='icon'/>
+                              <h3>{repo.license}</h3>
+                            </div>   
+                          </div>
+                        </div> 
+                      </a>
+                    
+                  ))         
+                )
+                :
+                (
+                  <>
+                    <p>Este usuário nao possui repositórios</p>
+                  </>          
+                )
+              }
+            </div>
+            
         </div>               
       </div>  
     </div>
