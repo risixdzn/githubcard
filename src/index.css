@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+body{
+    background-color: var(--neutral-0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 0;
+    font-family: "Inter";
+    text-align: center;
+}
+
+h1,h2,h3,h4,h5,h6,p{
+    color: #fff;
+}
+
+.langcolor{
+    margin-left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    border: 1px solid #838383
+}
+
+img{
+    width: 250px;
+}
