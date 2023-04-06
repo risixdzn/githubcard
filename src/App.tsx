@@ -7,7 +7,7 @@ import axios from 'axios'
 
 import languageColors from './languageColors';
 
-import { FaStar, FaGithub } from 'react-icons/fa'
+import { FaStar, FaGithub, FaUser } from 'react-icons/fa'
 import { RiSuitcaseLine } from 'react-icons/ri'
 import { TbLink, TbGitFork } from 'react-icons/tb'
 import { GoLaw } from 'react-icons/go'
@@ -111,106 +111,107 @@ function App() {
   
 
   return (
-    <div className="App">  
-    
-      <div className='searchscreen' style={displayCard? {display:"flex", alignItems:"center",justifyContent:"center", flexDirection:"column"} : {display:"flex", alignItems:"center",justifyContent:"center", height:"100vh", flexDirection:"column"} }>
-        <h1><FaGithub/> Github Card</h1>
-        <form onSubmit={buscar}>
-          <input type="text" onChange={(e)=>{
-            setInputUsername(e.target.value)
-          }}></input>
+    <div className="App">
+      <main>
+        <div className='searchscreen' style={displayCard? {display:"flex", alignItems:"center",justifyContent:"center", flexDirection:"column"} : {display:"flex", alignItems:"center",justifyContent:"center", height:"100vh", flexDirection:"column"} } >
+          <h1><FaGithub/> Github Card</h1>
+          <form onSubmit={buscar}>
+            <input className='searchinput' type="user" id='user' name='user' placeholder='Usuário' onChange={(e)=>{
+              setInputUsername(e.target.value)
+            }}></input>
+            <label className='control-label' htmlFor="user"><FaUser/></label>  
+            <button onClick={buscar}>Buscar usuario</button>
+          </form>
 
-          <button onClick={buscar}>Buscar usuario</button>
-        </form>
-
-        <h3 style={ displayError ? {display:"block"} : {display: 'none'}}>Usuário nao encontrado</h3>
-      </div>    
-      
-      <div className='usercard' style={ displayCard ? {display:"block"} : {display: 'none'}}>  
-        <div className='userProfile'>
-          <div className="pic">
-            <img className='avatar' src={displayUser.avatar_url}></img>
-          </div>
-          <div className="userinfo">
-            <div className="usernames">
-              <h1 className='displayname'>{displayUser.name}</h1>
-              <h3 className='login'>/{displayUser.login}</h3>
-            </div>            
-            <div className='userstats'>
-              <div className='stat'>
-                <h4>{displayUser.followers}</h4>
-                <h5>Seguidores</h5>
-              </div>
-              <div className='stat'>
-                <h4>{displayUser.following}</h4>
-                <h5>Seguindo</h5>
-              </div>
-            </div>            
-          </div>          
-        </div>
-        <div className="userdesc">
-          <p>{displayUser.bio}</p>
-          <span style={displayUser.blog !== "" ? {display: "flex"}:{display:"none"}}>
-            <TbLink className='icon'/><a href={`https://${displayUser.blog}`}>{displayUser.blog}</a>
-          </span>
-          <span style={displayUser.company !== null ? {display: "flex"}:{display:"none"}}>
-            <RiSuitcaseLine className='icon'/><h4>{displayUser.company}</h4>
-          </span>
-        </div>
-          
-          <div className='repoinfo'>
-            <span className='title'><h2>Repositórios</h2><h3>{displayUser.public_repos}</h3></span>
-            
-            <div className='repos'>
-              {/* Para verificar se o array de repositórios em displayUser está vazio,
-              você pode usar a função length do array.
-              Se o length for igual a zero, o array está vazio. */}
-              { displayUser.repos.length !== 0 ?
-                (
-                  displayUser.repos.map((repo: { name: String,
-                    html_url: string,
-                    description: string,
-                    language: string,
-                    stargazers_count: number,
-                    forks_count: number,
-                    id: number,
-                    license: string })=>( 
-                      <a target='_blank' href={repo.html_url} className='repo'>
-                        <div key={repo.id}>     
-                          <div className="titlesec">
-                            <h1>{repo.name}</h1>
-                            <div className='stats'>
-                              <h4><FaStar/>{repo.stargazers_count}</h4>
-                              <h4><TbGitFork/>{repo.forks_count}</h4>    
-                            </div>
-                          </div>                            
-                          <p>{repo.description}</p> 
-                          <div className="info">   
-                            <div className="language">
-                              <div className='langcolor' style={{backgroundColor: languageColors[repo.language]}}></div>
-                              <h3>{repo.language}</h3> 
-                            </div>
-                            <div className="license" style={ repo.license !== "" ? {display:"flex"} : {display: 'none'}}>
-                              <GoLaw className='icon'/>
-                              <h3>{repo.license}</h3>
-                            </div>   
-                          </div>
-                        </div> 
-                      </a>
-                    
-                  ))         
-                )
-                :
-                (
-                  <>
-                    <p>Este usuário nao possui repositórios</p>
-                  </>          
-                )
-              }
+          <h3 style={ displayError ? {display:"block"} : {display: 'none'}}>Usuário nao encontrado</h3>
+        </div>    
+        
+        <div className='usercard' style={ displayCard ? {display:"block"} : {display: 'none'}}>  
+          <div className='userProfile'>
+            <div className="pic">
+              <img className='avatar' src={displayUser.avatar_url}></img>
             </div>
+            <div className="userinfo">
+              <div className="usernames">
+                <h1 className='displayname'>{displayUser.name}</h1>
+                <h3 className='login'>/{displayUser.login}</h3>
+              </div>            
+              <div className='userstats'>
+                <div className='stat'>
+                  <h4>{displayUser.followers}</h4>
+                  <h5>{displayUser.followers == 1 ? "Seguidor" : "Seguidores"}</h5>
+                </div>
+                <div className='stat'>
+                  <h4>{displayUser.following}</h4>
+                  <h5>Seguindo</h5>
+                </div>
+              </div>            
+            </div>          
+          </div>
+          <div className="userdesc">
+            <p>{displayUser.bio}</p>
+            <span style={displayUser.blog !== "" ? {display: "flex"}:{display:"none"}}>
+              <TbLink className='icon'/><a href={`https://${displayUser.blog}`}>{displayUser.blog}</a>
+            </span>
+            <span style={displayUser.company !== null ? {display: "flex"}:{display:"none"}}>
+              <RiSuitcaseLine className='icon'/><h4>{displayUser.company}</h4>
+            </span>
+          </div>
             
-        </div>               
-      </div>  
+            <div className='repoinfo'>
+              <span className='title'><h2>Repositórios</h2><h3>{displayUser.public_repos}</h3></span>
+              
+              <div className='repos'>
+                {/* Para verificar se o array de repositórios em displayUser está vazio,
+                você pode usar a função length do array.
+                Se o length for igual a zero, o array está vazio. */}
+                { displayUser.repos.length !== 0 ?
+                  (
+                    displayUser.repos.map((repo: { name: String,
+                      html_url: string,
+                      description: string,
+                      language: string,
+                      stargazers_count: number,
+                      forks_count: number,
+                      id: number,
+                      license: string })=>( 
+                        <a target='_blank' href={repo.html_url} className='repo'>
+                          <div key={repo.id}>     
+                            <div className="titlesec">
+                              <h1>{repo.name}</h1>
+                              <div className='stats'>
+                                <h4><FaStar/>{repo.stargazers_count}</h4>
+                                <h4><TbGitFork/>{repo.forks_count}</h4>    
+                              </div>
+                            </div>                            
+                            <p>{repo.description}</p> 
+                            <div className="info">   
+                              <div className="language">
+                                <div className='langcolor' style={{backgroundColor: languageColors[repo.language]}}></div>
+                                <h3>{repo.language}</h3> 
+                              </div>
+                              <div className="license" style={ repo.license !== "" ? {display:"flex"} : {display: 'none'}}>
+                                <GoLaw className='icon'/>
+                                <h3>{repo.license}</h3>
+                              </div>   
+                            </div>
+                          </div> 
+                        </a>
+                      
+                    ))         
+                  )
+                  :
+                  (
+                    <>
+                      <p>Este usuário nao possui repositórios</p>
+                    </>          
+                  )
+                }
+              </div>
+              
+          </div>               
+        </div>  
+      </main>  
     </div>
   )
 }

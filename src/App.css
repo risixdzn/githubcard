@@ -3,10 +3,17 @@
   --neutral-100: #141414;
   --neutral-200: #1e1e1e;
   --neutral-300: #2c2c2c;
+  --neutral-600:#adadad;
+  --primary: #3bceac;
 }
 
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+
+textarea:focus, input:focus{
+  outline: none;
 }

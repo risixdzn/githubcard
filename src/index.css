@@ -6,23 +6,26 @@ body{
     align-items: center;
     justify-content: center;
     font-family: "Inter";
+    width: 100vw;
+    height: 100vh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    overflow: hidden;
 }
 
 h1,h2,h3,h4,h5,h6,p{
     color: #fff;
 }
-
-.app{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
  
 img{
     width: 250px;
+}
+
+.app main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .usercard{
@@ -47,7 +50,9 @@ img{
 
 .pic img{
     width: 100%;
+    height: 100%;
     border-radius: 10px;
+    object-fit: cover;
 }
 
 .usernames{
@@ -67,6 +72,8 @@ img{
     font-size: 16px;
     color: #8B8B8B;
 }
+
+.userinfo{width: calc(100% - 125px);}
 
 .userinfo .userstats{
     width: 100%;
@@ -140,6 +147,7 @@ img{
     background-color: var(--neutral-200);
     padding: 15px 20px;
     margin-top: 15px;
+    border-radius: 15px;
 }
 
 .repoinfo .title {
@@ -246,4 +254,65 @@ img{
 
 .repo .info .license .icon{
     color: #fff;
+}
+
+form{
+    position: relative;
+}
+
+form label,.form label{
+    left: 20px;
+    top: 18px;
+    position: absolute;
+    color: var(--neutral-600);
+    transition: .1s ease-in-out;
+  }
+  
+  form input,.form input{
+    width: 250px;  
+    padding: 15px 55px;
+    border-radius: 5px;
+    background-color: var(--neutral-200);
+    color: var(--neutral-600);
+    border: 2px solid var(--neutral-200);
+    transition: .1s ease-in-out;
+    color: #fff;
+  } 
+  
+  form input::placeholder,.form input::placeholder{
+    color: var(--neutral-600);
+  }
+  
+  form input:focus, .form input:focus{
+    border: 2px solid var(--primary);
+  }
+  
+  input:focus + .control-label
+  {    
+    color: var(--primary);
+  }
+  
+  form input:disabled,.form input:disabled{
+    border: 2px solid #0f0f0f;
+    background-color: #0f0f0f;
+    color: var(--neutral-600);
+    cursor: not-allowed;  
+  }
+
+@media (max-width:700px) {
+    body{
+        padding: 15px;
+    }
+    .usercard{
+        padding: 35px 25px;
+        max-width: 350px;
+    }
+
+    .userProfile .displayname{
+        font-size: 18px;
+    }
+
+    .userProfile .login{
+        font-size: 15px;
+    }
 }
