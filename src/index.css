@@ -256,6 +256,48 @@ img{
     color: #fff;
 }
 
+form{
+    position: relative;
+}
+
+form label,.form label{
+    left: 20px;
+    top: 18px;
+    position: absolute;
+    color: var(--neutral-600);
+    transition: .1s ease-in-out;
+  }
+  
+  form input,.form input{
+    width: 250px;  
+    padding: 15px 55px;
+    border-radius: 5px;
+    background-color: var(--neutral-200);
+    color: var(--neutral-600);
+    border: 2px solid var(--neutral-200);
+    transition: .1s ease-in-out;
+    color: #fff;
+  } 
+  
+  form input::placeholder,.form input::placeholder{
+    color: var(--neutral-600);
+  }
+  
+  form input:focus, .form input:focus{
+    border: 2px solid var(--primary);
+  }
+  
+  input:focus + .control-label
+  {    
+    color: var(--primary);
+  }
+  
+  form input:disabled,.form input:disabled{
+    border: 2px solid #0f0f0f;
+    background-color: #0f0f0f;
+    color: var(--neutral-600);
+    cursor: not-allowed;  
+  }
 
 @media (max-width:700px) {
     body{

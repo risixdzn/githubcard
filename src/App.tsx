@@ -7,7 +7,7 @@ import axios from 'axios'
 
 import languageColors from './languageColors';
 
-import { FaStar, FaGithub } from 'react-icons/fa'
+import { FaStar, FaGithub, FaUser } from 'react-icons/fa'
 import { RiSuitcaseLine } from 'react-icons/ri'
 import { TbLink, TbGitFork } from 'react-icons/tb'
 import { GoLaw } from 'react-icons/go'
@@ -116,10 +116,10 @@ function App() {
         <div className='searchscreen' style={displayCard? {display:"flex", alignItems:"center",justifyContent:"center", flexDirection:"column"} : {display:"flex", alignItems:"center",justifyContent:"center", height:"100vh", flexDirection:"column"} } >
           <h1><FaGithub/> Github Card</h1>
           <form onSubmit={buscar}>
-            <input type="text" onChange={(e)=>{
+            <input className='searchinput' type="user" id='user' name='user' placeholder='Usuário' onChange={(e)=>{
               setInputUsername(e.target.value)
             }}></input>
-
+            <label className='control-label' htmlFor="user"><FaUser/></label>  
             <button onClick={buscar}>Buscar usuario</button>
           </form>
 
