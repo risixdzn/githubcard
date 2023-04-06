@@ -6,23 +6,26 @@ body{
     align-items: center;
     justify-content: center;
     font-family: "Inter";
+    width: 100vw;
+    height: 100vh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    overflow: hidden;
 }
 
 h1,h2,h3,h4,h5,h6,p{
     color: #fff;
 }
-
-.app{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
  
 img{
     width: 250px;
+}
+
+.app main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .usercard{
@@ -47,7 +50,9 @@ img{
 
 .pic img{
     width: 100%;
+    height: 100%;
     border-radius: 10px;
+    object-fit: cover;
 }
 
 .usernames{
@@ -67,6 +72,8 @@ img{
     font-size: 16px;
     color: #8B8B8B;
 }
+
+.userinfo{width: calc(100% - 125px);}
 
 .userinfo .userstats{
     width: 100%;
@@ -140,6 +147,7 @@ img{
     background-color: var(--neutral-200);
     padding: 15px 20px;
     margin-top: 15px;
+    border-radius: 15px;
 }
 
 .repoinfo .title {
@@ -246,4 +254,23 @@ img{
 
 .repo .info .license .icon{
     color: #fff;
+}
+
+
+@media (max-width:700px) {
+    body{
+        padding: 15px;
+    }
+    .usercard{
+        padding: 35px 25px;
+        max-width: 350px;
+    }
+
+    .userProfile .displayname{
+        font-size: 18px;
+    }
+
+    .userProfile .login{
+        font-size: 15px;
+    }
 }
