@@ -370,6 +370,20 @@ form label,.form label{
     cursor: not-allowed;  
   }
 
+  .loader{
+    width: 150px;
+    padding: 25px;
+  }
+
+  .error{
+    text-align: center;
+  }
+  
+  .error p{
+    font-size: 15px;
+    color: var(--neutral-600);
+  }
+
 @media (max-width:700px) {
     body{
         padding: 15px;
