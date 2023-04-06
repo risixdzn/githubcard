@@ -120,10 +120,10 @@ function App() {
               setInputUsername(e.target.value)
             }}></input>
             <label className='control-label' htmlFor="user"><FaUser/></label>  
-            <button onClick={buscar}>Buscar usuario</button>
+            <button onClick={buscar} className='searchbtn'>Buscar usuário</button>
           </form>
 
-          <h3 style={ displayError ? {display:"block"} : {display: 'none'}}>Usuário nao encontrado</h3>
+          <h3 style={ displayError ? {display:"block", marginTop:"15px"} : {display: 'none'}}>Usuário nao encontrado</h3>
         </div>    
         
         <div className='usercard' style={ displayCard ? {display:"block"} : {display: 'none'}}>  
