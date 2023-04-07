@@ -428,9 +428,7 @@ form label,.form label{
   }
 
 @media (max-width:700px) {
-    body{
-        padding: 15px;
-    }
+    
     .usercard{
         padding: 35px 25px;
         max-width: 350px;
