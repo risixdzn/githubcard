@@ -13,7 +13,32 @@
   box-sizing: border-box;
 }
 
-
 textarea:focus, input:focus{
   outline: none;
+}
+
+::-webkit-scrollbar-track
+{
+	border-radius: 10px;
+  
+	background-color: var(--dark)
+}
+
+::-webkit-scrollbar
+{
+	width: 20px;
+	background-color: var(--dark);
+  
+}
+
+::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	border: 6px solid #0c0c0c;
+	background-color: var(--primary);
+}
+
+::selection {
+  color: #fff;
+  background: var(--primary);
 }
