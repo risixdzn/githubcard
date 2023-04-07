@@ -15,12 +15,19 @@ import { TbLink, TbGitFork } from 'react-icons/tb'
 import { GoLaw } from 'react-icons/go'
 import { HiLocationMarker } from 'react-icons/hi'
 
+import SearchScreen from './components/SearchScreen'
+import { fetchUser } from './components/FetchUser'
+import { useFetchRepos } from './hooks/useFetchRepos'
+
 function App() {
   const apiUrl = "https://api.github.com/users/"
+  
   const [loading , setLoading] = useState(false);
-
   const [inputUsername, setInputUsername] = useState("")
+  const [displayError, setDisplayError] = useState(false);
+  const [displayCard, setDisplayCard] = useState(false);
 
+  //define o usuario
   const [displayUser, setDisplayUser] = useState({
     login: "",
     name: "",
@@ -35,117 +42,23 @@ function App() {
     html_url: "",
     repos_url: "",
     repos: [],
-  }as any);
-
-  const [displayError, setDisplayError] = useState(false);
-  const [displayCard, setDisplayCard] = useState(false);
+  }as any);  
   
+  //função de busca
   const buscar = (e: { preventDefault: () => void })=>{
     e.preventDefault();
     setLoading(true);
-    fetchUser()
-  }  
-
-  function fetchUser(){
-    console.log(loading);
-    //resetuser
-    setDisplayUser({
-      login: "",
-      name: "",
-      bio: "",
-      blog: "",
-      company: "",
-      location: "",
-      created_at: "",
-      public_repos: 0,
-      followers: 0,
-      following: 0,
-      avatar_url: "",
-      html_url: "",
-      repos_url: "",
-      repos: [],    
-    })      
-    setDisplayError(false);
-    setDisplayCard(false);  
-    axios.get(`${apiUrl}${inputUsername}`).then((res)=>{
-      setDisplayError(false);      
-      console.log(res.data);
-      setDisplayUser({
-        login: res.data.login,
-        name: res.data.name,
-        bio: res.data.bio,
-        blog: res.data.blog,
-        company: res.data.company,
-        location: res.data.location,
-        created_at: res.data.created_at,
-        public_repos: res.data.public_repos,
-        followers: res.data.followers,
-        following: res.data.following,
-        avatar_url: res.data.avatar_url,
-        html_url: res.data.html_url,
-        repos_url: res.data.repos_url + "?sort=updated&direction=desc&per_page=2&type=owner",
-        repos: [], // inicializa o array de repositórios vazio
-      });      
-    }).catch(function (e){
-      if(e.response.status == 404){
-        setDisplayError(true);
-      }       
-      setLoading(false);
-      console.log(loading);
-      setDisplayCard(false);
-    })
-  }
+    fetchUser(loading, setLoading, setDisplayUser, setDisplayCard, setDisplayError, inputUsername, apiUrl);
+  }    
   
-  useEffect(() => {
-    axios.get(`${displayUser.repos_url}`).then((res)=>{
-      const newRepos = res.data.map((repo:any) => {
-        return {
-          name: repo.name,
-          html_url: repo.html_url,
-          description: repo.description,
-          language: repo.language,
-          stargazers_count: repo.stargazers_count,
-          forks_count: repo.forks_count,
-          id: repo.id,
-          license: repo.license?.name || "", // acessa o nome da licença, se houver, ou retorna uma string vazia
-        };          
-      });  
-      setDisplayUser((prevUser:any) => {
-        return {
-          ...prevUser,
-          repos: newRepos, // atualiza o array de repositórios com os novos valores
-        };          
-      });
-      setLoading(false);
-      setDisplayCard(true);
-      console.log(loading);
-    }); 
-  }, [displayUser.repos_url]);
-
-  
+  //useeffect para procurar repositórios se houver
+  useFetchRepos(displayUser, setDisplayUser, setLoading, setDisplayCard, loading);  
 
   return (
     <div className="App">      
       <div className="attention"><h1>Desenvolvido por <a href='https://github.com/risixdzn' target='_blank'>Ricardo Amorim</a></h1></div>
       <main className='main'>       
-        <div className='searchscreen' style={displayCard? {display:"flex", alignItems:"center",justifyContent:"center", flexDirection:"column"} : {display:"flex", alignItems:"center",justifyContent:"center", height:"100vh", flexDirection:"column"} } >
-          <h1><FaGithub/> Github Card</h1>
-          <form onSubmit={buscar}>
-            <input disabled={ loading ? true : false} className='searchinput' type="user" id='user' name='user' placeholder='Usuário' onChange={(e)=>{
-              setInputUsername(e.target.value)
-            }}></input>
-            <label className='control-label' htmlFor="user"><FaUser/></label>  
-            <button onClick={buscar} className='searchbtn'>Buscar usuário</button>
-          </form>
-
-          <img className='loader' src="./rippleloader.svg" style={loading? { display:"block"} : {display:"none"}}/>
-
-            <div className='error' style={ displayError ? {display:"block", marginTop:"15px"} : {display: 'none'}}>
-              <h3 >Usuário não encontrado</h3>
-              <p>Verifique a digitação e tente novamente.</p>
-            </div>
-          
-        </div>   
+        <SearchScreen displayCard={displayCard} loading={loading} displayError={displayError} buscar={buscar} setInputUsername={setInputUsername}/> 
 
         <div className='usercard' id='usercard' style={ displayCard ? {display:"block"} : {display: 'none'}}>  
           <div className='userProfile'>
@@ -239,4 +152,4 @@ function App() {
   )
 }
 
-export default App
+export default App   
