@@ -1,17 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 body{
-    background-color: var(--neutral-0);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background-color: var(--neutral-0);   
+    overflow-x: hidden; 
+    overflow-y: scroll;
     font-family: "Inter";
-    width: 100vw;
-    height: 100vh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    overflow: hidden;
 }
 
 h1,h2,h3,h4,h5,h6,p{
@@ -22,10 +18,36 @@ img{
     width: 250px;
 }
 
-.app main{
+.main{
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;    
+    margin-top: 30px;    
+}
+
+.attention{
+    width: 100vw;
+    height: 30px;    
+    position:fixed;
+    background-color: var(--primary);
+    display: block;
+    margin-top: -30px;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.attention h1{
+    font-size: 15px; 
+    color: var(--neutral-0);
+    font-weight: 600;
+}
+
+.attention a{
+    color: var(--neutral-0);
 }
 
 .usercard{
@@ -127,6 +149,19 @@ img{
 .userdesc span .icon{
     color: #8B8B8B;
     font-size: 22px;
+}
+
+.small{
+    font-size: 16px !important;
+}
+
+.divisoria{
+    width: 100px;
+    height: 4px;
+    border-radius: 4px;
+    background-color: var(--neutral-600);
+    margin-left: 50%;
+    transform: translateX(-50%);
 }
 
 .userdesc span a{
@@ -368,6 +403,28 @@ form label,.form label{
     background-color: #0f0f0f;
     color: var(--neutral-600);
     cursor: not-allowed;  
+  }
+
+  .loader{
+    width: 150px;
+    padding: 25px;
+  }
+
+  .error{
+    text-align: center;
+  }
+  
+  .error p{
+    font-size: 15px;
+    color: var(--neutral-600);
+  }
+
+  .enterdate{
+    white-space: nowrap;
+  }
+
+  .enterdate span{
+    color: white;
   }
 
 @media (max-width:700px) {
