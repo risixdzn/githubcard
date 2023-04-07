@@ -1,6 +1,6 @@
 import React from 'react'
 
-import languageColors from '../../../languageColors'
+import languageColors from '../../languageColors'
 
 import { FaStar } from 'react-icons/fa'
 import { TbGitFork } from 'react-icons/tb'

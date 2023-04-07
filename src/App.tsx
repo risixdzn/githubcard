@@ -4,9 +4,9 @@ import './App.css'
 import SearchScreen from './components/SearchScreen'
 import { fetchUser } from './api/FetchUser'
 import { useFetchRepos } from './api/hooks/useFetchRepos'
-import UserProfile from './components/UserCard.tsx/components/UserProfile'
-import UserDesc from './components/UserCard.tsx/components/UserDesc'
-import RepoInfo from './components/UserCard.tsx/components/RepoInfo'
+import UserProfile from './components/UserCard/UserProfile'
+import UserDesc from './components/UserCard/UserDesc'
+import RepoInfo from './components/UserCard/RepoInfo'
 
 function App() {
   const apiUrl = "https://api.github.com/users/"

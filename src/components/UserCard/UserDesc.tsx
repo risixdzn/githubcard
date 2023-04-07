@@ -1,6 +1,6 @@
 import React from 'react'
 
-import UserCreationDate from '../../../UserCreationDate'
+import UserCreationDate from '../../UserCreationDate'
 
 import { FaCalendar } from 'react-icons/fa'
 import { HiLocationMarker } from 'react-icons/hi'
