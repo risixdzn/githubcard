@@ -42,7 +42,7 @@ function App() {
   }    
   
   //useeffect para procurar repositórios se houver
-  useFetchRepos(displayUser, setDisplayUser, setLoading, setDisplayCard, loading);  
+  useFetchRepos(displayUser, setDisplayUser, setLoading, setDisplayCard, loading);    
   
   return (
     <div className="App">      

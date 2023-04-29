@@ -6,6 +6,7 @@ function SearchScreen({ displayCard, loading, displayError, buscar, setInputUser
   return (
     <div className='searchscreen' style={displayCard? {display:"flex", alignItems:"center",justifyContent:"center", flexDirection:"column"} : {display:"flex", alignItems:"center",justifyContent:"center", height:"100vh", flexDirection:"column"} } >
       <h1><FaGithub/> Github Card</h1>
+      <p>Gere um cartão informativo com base no seu perfil do Github</p>
       <form onSubmit={buscar}>
         <input disabled={ loading ? true : false} className='searchinput' type="user" id='user' name='user' placeholder='Usuário' onChange={(e)=>{
           setInputUsername(e.target.value)
